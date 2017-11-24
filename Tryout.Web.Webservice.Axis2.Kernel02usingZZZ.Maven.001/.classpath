@@ -13,11 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/JAZKernel"/>
-	<classpathentry kind="lib" path="/ZKernelFileCollection/axis2-1.7.5.42_missing/taglibs-standard-compat-1.2.5.jar"/>
-	<classpathentry kind="lib" path="/ZKernelFileCollection/axis2-1.7.5.42_missing/taglibs-standard-impl-1.2.5.jar"/>
-	<classpathentry kind="lib" path="/ZKernelFileCollection/axis2-1.7.5.42_missing/taglibs-standard-jstlel-1.2.5.jar"/>
-	<classpathentry kind="lib" path="/ZKernelFileCollection/axis2-1.7.5.42_missing/taglibs-standard-spec-1.2.5.jar"/>
-	<classpathentry kind="lib" path="/ZKernelFileCollection/axis2-1.7.5.42_missing/xmlschema-core-2.2.1.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/JAZTileHexMap03"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

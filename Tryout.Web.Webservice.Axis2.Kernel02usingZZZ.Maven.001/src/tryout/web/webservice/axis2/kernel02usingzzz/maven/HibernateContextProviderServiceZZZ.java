@@ -1,10 +1,27 @@
 package tryout.web.webservice.axis2.kernel02usingzzz.maven;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.KernelZZZ;
+import use.thm.dummy.WebDeploymentTest;
+import use.thm.persistence.dao.TileDefaulttextDao;
+import use.thm.persistence.dao.TroopArmyDao;
+import use.thm.persistence.hibernate.HibernateContextProviderSingletonTHM;
+import use.thm.persistence.model.Key;
+import use.thm.persistence.model.TileDefaulttext;
+import use.thm.persistence.model.TroopArmy;
 
 public class HibernateContextProviderServiceZZZ {
 	public String sayHello(String name){
@@ -32,5 +49,42 @@ public class HibernateContextProviderServiceZZZ {
 			}
 		}//end main:
 		return sReturn;			
+	}
+	
+	public String getHibernateDto(){
+		String sReturn = null;
+		main:{
+			try{
+				
+				//Mal mit einer einfachen Klasse beginnen, die nichts weiter beinhaltet, vor allem keine anderen Importe.
+				WebDeploymentTest objDeployed = new WebDeploymentTest();
+				objDeployed.doIt();
+				sReturn = " WebDeploymentTest Klasse wohl erfolgreich deployed.";
+				System.out.println(sReturn);
+				
+				//TODO GOON: PRoblem, das HibernateContextProviderSingletonTHM nicht als Klasse gefunden wird.
+				KernelZZZ objKernel = new KernelZZZ(); //Merke: Die Service Klasse selbst kann wohl nicht das KernelObjekt extenden!				
+				HibernateContextProviderSingletonTHM objContextHibernate = HibernateContextProviderSingletonTHM.getInstance(objKernel);
+				sReturn = sReturn + " HibernateContextProviderSingletonTHM Klasse wohl erfolgreich deployed.";
+				System.out.println(sReturn);
+				
+				Configuration objConfig = objContextHibernate.getConfiguration();
+				objConfig.setProperty("hibernate.hbm2ddl.auto", "update");  //! Jetzt erst wird jede Tabelle über den Anwendungsstart hinaus gespeichert UND auch wiedergeholt.				
+				sReturn = sReturn + " Configuration wohl erfolgreich deployed";
+				System.out.println(sReturn);
+				
+//				//Hier die Session Factory NICHT über JNDI holen.
+				Session session = objContextHibernate.getSession();
+				session.beginTransaction();
+				session.close();
+				session.clear();
+				sReturn = " Session erfolgreich geöffnet und wieder geschlossen";
+			} catch (ExceptionZZZ e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				sReturn = sReturn + " Leider Fehler am Ende.";
+			}
+		}//end main:
+		return sReturn;
 	}
 }

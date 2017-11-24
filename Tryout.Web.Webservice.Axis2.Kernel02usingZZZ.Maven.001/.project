@@ -3,7 +3,12 @@
 	<name>Tryout.Web.Webservice.Axis2.Kernel02usingZZZ.Maven.001</name>
 	<comment></comment>
 	<projects>
+		<project>JAZKernelUIExpression</project>
 		<project>JAZKernel</project>
+		<project>JAZKernelLogReport</project>
+		<project>JAZLanguageMarkup</project>
+		<project>JAZKernelUI</project>
+		<project>JAZTileHexMap03</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

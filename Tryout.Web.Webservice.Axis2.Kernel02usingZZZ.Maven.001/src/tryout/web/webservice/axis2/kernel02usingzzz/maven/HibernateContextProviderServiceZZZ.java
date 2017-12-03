@@ -76,8 +76,8 @@ public class HibernateContextProviderServiceZZZ {
 //				//Hier die Session Factory NICHT über JNDI holen.
 				Session session = objContextHibernate.getSession();
 				session.beginTransaction();
+				session.clear();//Die Reihenfolge ist wichtig: Erst clear(), dann close()
 				session.close();
-				session.clear();
 				sReturn = " Session erfolgreich geöffnet und wieder geschlossen";
 			} catch (ExceptionZZZ e) {
 				// TODO Auto-generated catch block

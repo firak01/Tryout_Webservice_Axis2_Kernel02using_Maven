@@ -1,1 +1,13 @@
+/target/
+/bin/
 /build/
+
+#Im WebService Projekt WebContent generell erlauben.
+#/WebContent/
+
+# Auch ggfs. im WebService gebaute .class Dateien ausschliessen. In beliebigem Unterverzeichnis.
+/WebContent/WEB-INF/services/**/*.class
+
+#Überall ggfs. anfallende Log Dateien ausschliessen
+*.log
+*.log.*

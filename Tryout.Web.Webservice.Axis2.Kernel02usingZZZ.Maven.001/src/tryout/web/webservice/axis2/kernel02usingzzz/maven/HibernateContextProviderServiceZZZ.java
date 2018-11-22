@@ -13,7 +13,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import basic.persistence.util.HibernateUtil;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.KernelSingletonTHM;
+import basic.zBasic.persistence.interfaces.IHibernateContextProviderZZZ;
+import basic.zKernel.KernelSingletonZZZ;
 import basic.zKernel.KernelZZZ;
 import use.thm.dummy.WebDeploymentTest;
 import use.thm.persistence.dao.TileDefaulttextDao;
@@ -22,6 +26,7 @@ import use.thm.persistence.hibernate.HibernateContextProviderSingletonTHM;
 import use.thm.persistence.model.Key;
 import use.thm.persistence.model.TileDefaulttext;
 import use.thm.persistence.model.TroopArmy;
+import use.thm.persistence.util.HibernateUtilTHM;
 
 public class HibernateContextProviderServiceZZZ {
 	public String sayHello(String name){
@@ -62,19 +67,19 @@ public class HibernateContextProviderServiceZZZ {
 				sReturn = " WebDeploymentTest Klasse wohl erfolgreich deployed.";
 				System.out.println(sReturn);
 				
-				//TODO GOON: PRoblem, das HibernateContextProviderSingletonTHM nicht als Klasse gefunden wird.
-				KernelZZZ objKernel = new KernelZZZ(); //Merke: Die Service Klasse selbst kann wohl nicht das KernelObjekt extenden!				
-				HibernateContextProviderSingletonTHM objContextHibernate = HibernateContextProviderSingletonTHM.getInstance(objKernel);
+				KernelSingletonZZZ objKernelSingleton = KernelSingletonZZZ.getInstance();	
+				IHibernateContextProviderZZZ objHibernateContext = HibernateUtilTHM.getHibernateContextProviderUsed(objKernelSingleton);
+				
 				sReturn = sReturn + " HibernateContextProviderSingletonTHM Klasse wohl erfolgreich deployed.";
 				System.out.println(sReturn);
 				
-				Configuration objConfig = objContextHibernate.getConfiguration();
+				Configuration objConfig = objHibernateContext.getConfiguration();
 				objConfig.setProperty("hibernate.hbm2ddl.auto", "update");  //! Jetzt erst wird jede Tabelle über den Anwendungsstart hinaus gespeichert UND auch wiedergeholt.				
 				sReturn = sReturn + " Configuration wohl erfolgreich deployed";
 				System.out.println(sReturn);
 				
 //				//Hier die Session Factory NICHT über JNDI holen.
-				Session session = objContextHibernate.getSession();
+				Session session = objHibernateContext.getSessionOpen();
 				session.beginTransaction();
 				session.clear();//Die Reihenfolge ist wichtig: Erst clear(), dann close()
 				session.close();
